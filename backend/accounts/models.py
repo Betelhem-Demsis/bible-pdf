@@ -4,7 +4,6 @@ from django.contrib.auth.models import AbstractUser
 class CustomUser(AbstractUser):
     profile_picture = models.ImageField(upload_to='profile_photos/', null=True, blank=True)
 
-    
     groups = models.ManyToManyField(
         'auth.Group',
         related_name='customuser_set',  
