@@ -1,20 +1,34 @@
-// src/pages/Login.jsx
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.email) newErrors.email = 'Email is required';
+    if (!formData.password) newErrors.password = 'Password is required';
+    return newErrors;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add login logic here (e.g., API call)
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
     console.log('Logged in:', formData);
-    navigate('/dashboard'); // Navigate to dashboard after successful login
+    
+    // Here you would call your login API and store user info (e.g., token, username)
+    // After successful login, navigate to dashboard
+    navigate('/dashboard');
   };
 
   return (
@@ -30,6 +44,7 @@ const Login = () => {
           onChange={handleChange} 
           className="w-full p-2 mb-4 border rounded" 
         />
+        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
         
         <input 
           type="password" 
@@ -39,11 +54,12 @@ const Login = () => {
           onChange={handleChange} 
           className="w-full p-2 mb-6 border rounded" 
         />
+        {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
         
         <button type="submit" className="w-full bg-btn-bg text-white py-2 rounded-lg hover:bg-btn-clicked">Log In</button>
         
         <p className="mt-4 text-center">
-          Dont have an account? <Link to="/signup" className="text-blue-600 hover:underline">Sign Up</Link>
+          Don't have an account? <Link to="/signup" className="text-blue-600 hover:underline">Sign Up</Link>
         </p>
       </form>
     </div>
