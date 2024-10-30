@@ -1,8 +1,5 @@
 from rest_framework import status, generics
-from rest_framework import serializers
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
-from django.contrib.auth import get_user_model
 from rest_framework.views import APIView
 from rest_framework import permissions
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -24,7 +21,6 @@ class RegisterView(generics.CreateAPIView):
         # token, created = Token.objects.get_or_create(user=user)
         return Response({'user': user.id}, status=status.HTTP_201_CREATED)
         
-
 
 class LoginView(generics.GenericAPIView):
     serializer_class = LoginSerializer  

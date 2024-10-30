@@ -11,7 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class RegisterSerializer(serializers.ModelSerializer):
-    password1 = serializers.CharField(write_only=True)
+    password1 = serializers.CharField(write_only=True, label="Password")
     password2 = serializers.CharField(write_only=True, label="Confirm Password")
 
     class Meta:

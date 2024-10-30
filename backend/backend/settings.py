@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from django.conf import settings
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'bible',
     'accounts',
+    'import_export',
 ]
 
 REST_FRAMEWORK = {
@@ -81,7 +88,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'backend.wsgi.application'
-
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
