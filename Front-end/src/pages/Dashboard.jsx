@@ -2,14 +2,19 @@ import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { LuUserCircle2 } from "react-icons/lu";
+import { Worker, Viewer, SpecialZoomLevel } from "@react-pdf-viewer/core";
+import * as pdfjsLib from "pdfjs-dist/build/pdf";
+import "@react-pdf-viewer/core/lib/styles/index.css";
 
+// Manually set the worker path
+pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
 const Dashboard = () => {
   const location = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedBook, setSelectedBook] = useState(null);
   const [selectedChapter, setSelectedChapter] = useState(null);
-  
+
   // Sample data
   const books = ["Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy"];
   const chapters = Array.from({ length: 30 }, (_, i) => i + 1); // Simulating 30 chapters
@@ -61,10 +66,11 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <div className="flex flex-col w-full p-4">
-      <div className="flex justify-end items-center mb-3"> {/* Aligns everything to the right */}
-    <h1 className="text-xl font-light text-right mr-2">Hi, {username}!</h1> {/* Move the text first */}
-    <LuUserCircle2 className="text-3xl font-light" /> {/* Increase the size of the icon */}
-  </div>
+        <div className="flex justify-end items-center mb-3">
+          <h1 className="text-xl font-light text-right mr-2">Hi, {username}!</h1>
+          <LuUserCircle2 className="text-3xl font-light" />
+        </div>
+        
         {/* Chapter Selector */}
         {selectedBook && (
           <div className="mb-4">
@@ -83,11 +89,20 @@ const Dashboard = () => {
           </div>
         )}
 
-        {/* Chapter Content */}
+        {/* PDF Viewer */}
         {selectedChapter && (
           <div className="bg-white p-4 rounded-lg shadow-lg">
             <h3 className="text-xl font-bold mb-2">Chapter {selectedChapter}</h3>
             <p>{chapterContent}</p>
+            <div className="mt-4">
+              <Worker workerUrl={`//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`}>
+                <Viewer
+                  fileUrl="/path/to/hj.pdf" // Update with actual path to your "hj.pdf" file
+                  initialPageIndex={selectedChapter - 1} // Display page based on selected chapter
+                  defaultScale={SpecialZoomLevel.PageFit} // Fit PDF to viewer width
+                />
+              </Worker>
+            </div>
           </div>
         )}
       </div>
