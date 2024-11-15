@@ -12,7 +12,7 @@ const Home = () => {
         <Link to="/download">Scan to install the app</Link></p>
         
         <p className="text-xl pb-5">
-          <Link to="/SignUp" className="text-btn-clicked hover:text-btn-bg underline">Or Read the Bible online</Link>
+          <Link to="/dashboard" className="text-btn-clicked hover:text-btn-bg underline">Or Read the Bible online</Link>
         </p>
       </div>
     </div>
