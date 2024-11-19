@@ -1,15 +1,15 @@
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Worker } from '@react-pdf-viewer/core';
+import { Viewer } from "@react-pdf-viewer/core";
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import { gospelNames, chapterAndPage, chapterNumberValues, offsets, indexList } from "../assets/data.js";
-import ForwardedViewer from '../components/ForwardedViewer.jsx'; 
 
 const Dashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedBook, setSelectedBook] = useState(null);
   const [selectedChapter, setSelectedChapter] = useState(null);
-  const viewerRef = useRef(null); 
+
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -66,7 +66,7 @@ const Dashboard = () => {
 
           <div className="flex-grow overflow-hidden">
             <Worker workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}>
-              <ForwardedViewer fileUrl="/new.pdf" ref={viewerRef} />
+              <Viewer fileUrl="/new.pdf"/>
             </Worker>
           </div>
         </div>
