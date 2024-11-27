@@ -1,4 +1,3 @@
-// src/App.jsx
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -12,12 +11,11 @@ import Login from './pages/Login';
 const App = () => {
   const location = useLocation();
 
-  // Define routes where the Navbar should not be displayed
+
   const excludeNavbarRoutes = ['/dashboard'];
 
   return (
     <div className="font-poppins">
-      {/* Conditionally render Navbar if not on excluded routes */}
       {!excludeNavbarRoutes.includes(location.pathname) && <Navbar />}
 
       <Routes>
